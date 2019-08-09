@@ -30,26 +30,87 @@
 	font-size: 35px;
 }
 
-.box:hover:not(.selectedNum) {
+.box:hover:not(.selectedNum, .note, .notes) {
+	transition: background-color 0.5s ease;
 	background-color: lightblue;
 }
 
-.selectedNum:not(.selected) {
+.selectedNum:not(.selected, .note, .notes) {
+	transition: background-color 0.5s ease;
 	background-color: lightgrey;
 }
 
-.selectedOth:not(.selected) {
+.selectedOth:not(.selected, .note, .notes) {
+	transition: background-color 0.5s ease;
 	background-color: lightblue;
 }
 
 .selected {
+	transition: background-color 0.5s ease;
 	background-color: grey;
 }
 
-.wrong:not(.set) {
+.wrong:not(.set, .note, .notes) {
+	transition: color 0.5s ease;
 	color: red;
 }
 
 .set {
 	font-weight: bold;
+}
+
+.notes {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.note {
+	width: 30%;
+	height: 30%;
+	padding: 0;
+	margin: 0 auto;
+	line-height: 17px;
+	font-size: 13px;
+	text-align: center;
+}
+
+.inactive {
+	color: transparent;
+}
+
+.hidden {
+	display: none;
+}
+
+.controls {
+	width: 550px;
+	margin: 35px auto;
+}
+
+button {
+	margin: 5px;
+	width: 50px;
+	height: 50px;
+	font-size: 25px;
+	font-weight: bold;
+	box-shadow: none;
+	border-radius: 5px;
+	border: .5px solid black;
+}
+
+button:hover {
+	transition: border .2s ease;
+	border: 3px solid teal;
+}
+
+.extra {
+	text-align: center;
+}
+
+.clear {
+	width: 150px;
 }

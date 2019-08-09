@@ -1,4 +1,5 @@
 import React 		from 'react'
+import Control 	from './controls.js'
 
 import '../App.css'
 
@@ -41,6 +42,7 @@ let board = [[	{row:'A', collumn: 'A', group: '1', num: '8', set: true, answer: 
 
 class Sudoku extends React.Component {
 	state = {
+		notes: false,
 		selectedNum: '',
 		selectedBox: '',
 		selectedRow: '',
@@ -49,32 +51,103 @@ class Sudoku extends React.Component {
 	}
 
 	selectBox = (event) => {
+		console.log(event.currentTarget)
 		this.setState({
-			selectedNum: event.target.textContent,
-			selectedBox: event.target.getAttribute('box'),
-			selectedRow: event.target.getAttribute('row'),
-			selectedCol: event.target.getAttribute('collumn'),
-			selectedGroup: event.target.getAttribute('group')
-		}, () => {console.log(this.state.selectedNum, this.state.selectedBox)})
-	}
+			selectedNum: event.currentTarget.getAttribute('num'),
+			selectedBox: event.currentTarget.getAttribute('box'),
+			selectedRow: event.currentTarget.getAttribute('row'),
+			selectedCol: event.currentTarget.getAttribute('collumn'),
+			selectedGroup: event.currentTarget.getAttribute('group')
+		}, () => {console.log(this.state.selectedNum, this.state.selectedBox)})}
 
+	
 	classList = (...classes) => {
 		return classes.filter(item => !!item).join(' ')
 	}
 
 	handleChange = (event) => {
-		if (isFinite(event.key) && event.key > 0) {
-			this.setState({
-				[event.target.getAttribute('box')]: event.key
+
+		if (this.state.notes) {
+			let copystateNotes = JSON.parse(JSON.stringify(this.state[event.currentTarget.getAttribute('box')]))
+			console.log(copystateNotes)
+			copystateNotes.notes.forEach((ele) => {
+				console.log(ele)
+				console.log(event.key)
+				if (ele.num === event.key) {
+					ele.active = !ele.active
+				}
 			})
+			this.setState({
+				[event.currentTarget.getAttribute('box')] : copystateNotes
+			})
+		} else {
+			let copystate = JSON.parse(JSON.stringify(this.state[event.currentTarget.getAttribute('box')]))
+			copystate.num = event.key
+			if (isFinite(event.key) && event.key > 0 && event.key !== 'Alt') {
+				this.setState({
+					[event.currentTarget.getAttribute('box')]: copystate
+				})
+			}
 		}
+	}
+
+	buttonChange = (value) => {
+		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
+		copystate.num = value
+		this.setState({
+			[this.state.selectedBox]: copystate
+		})
+	}
+
+	buttonClear = () => {
+		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
+		copystate.num = ''
+		copystate.notes =  [{num: '1', active: false},
+							{num: '2', active: false},
+							{num: '3', active: false},
+							{num: '4', active: false},
+							{num: '5', active: false},
+							{num: '6', active: false},
+							{num: '7', active: false},
+							{num: '8', active: false},
+							{num: '9', active: false}
+							]
+		this.setState({
+			[this.state.selectedBox]: copystate
+		})
+	}
+
+	buttonHint = () => {
+		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
+		copystate.num = this.state[this.state.selectedBox].answer
+		this.setState({
+			[this.state.selectedBox]: copystate
+		}, () => {console.log(this.state[this.state.selectedBox])})
+	}
+
+	buttonNotes = () => {
+		this.setState({
+			notes: !this.state.notes
+		}, () => {console.log(this.state.notes)})
 	}
 
 	componentWillMount() {
 		board.forEach((ele) => {
 			ele.forEach((e) => {
 				this.setState({
-					[e.row + e.collumn]: e.num
+					[e.row + e.collumn]: {	num: e.num, 
+											answer: e.answer, 
+											notes: [{num: '1', active: false},
+													{num: '2', active: false},
+													{num: '3', active: false},
+													{num: '4', active: false},
+													{num: '5', active: false},
+													{num: '6', active: false},
+													{num: '7', active: false},
+													{num: '8', active: false},
+													{num: '9', active: false}
+											]
+										}
 				})
 			})
 		})
@@ -89,46 +162,71 @@ class Sudoku extends React.Component {
 
 	render () {
 		return (
-			<div className='board'>
-				{
-					board.map((ele, index) => {
-						return (
-							<div className='inner' group={index} key={index}>
-							{
-								ele.map((e) => {
-									return (
-										<div 
-											className={this.classList(
-													'box', 
-													e.set && 'set',
-													this.state.selectedNum === e.num && this.state.selectedNum > 0 && 'selectedOth',
-													this.state.selectedNum === this.state[e.row + e.collumn] && this.state[e.row + e.collumn] > 0 && 'selectedOth',
-													this.state.selectedRow === e.row && 'selectedNum',
-													this.state.selectedGroup === e.group && 'selectedNum',
-													this.state.selectedCol === e.collumn && 'selectedNum', 
-													this.state.selectedBox === (e.row + e.collumn) && 'selected',
-													this.state[e.row + e.collumn] !== e.answer && 'wrong'
-												)}
-											answer={e.answer}
-											box={e.row + e.collumn} 
-											row={e.row} 
-											collumn={e.collumn}
-											group={e.group} 
-											key={e.collumn + e.row}
-											onClick={this.selectBox}
-											onKeyDown={this.handleChange}
-											tabIndex='0'
-										>	
-											{e.num > 0 ? e.num : this.state[e.row + e.collumn]}
-										</div>
-									)
-								})
-							}
-							</div>
-						)
-						
-					})
-				}
+			<div>
+				<div className='board'>
+					{
+						board.map((ele, index) => {
+							return (
+								<div className='inner' group={index} key={index}>
+								{
+									ele.map((e) => {
+										return (
+											<div 
+												className={this.classList(
+														'box', 
+														e.set && 'set',
+														this.state.selectedNum === e.num && this.state.selectedNum > 0 && 'selectedOth',
+														this.state.selectedNum === this.state[e.row + e.collumn].num && this.state[e.row + e.collumn].num > 0 && 'selectedOth',
+														this.state.selectedRow === e.row && 'selectedNum',
+														this.state.selectedGroup === e.group && 'selectedNum',
+														this.state.selectedCol === e.collumn && 'selectedNum', 
+														this.state.selectedBox === (e.row + e.collumn) && 'selected',
+														this.state[e.row + e.collumn].num !== e.answer && 'wrong'
+													)}
+												answer={e.answer}
+												num={e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
+												box={e.row + e.collumn} 
+												row={e.row} 
+												collumn={e.collumn}
+												group={e.group} 
+												key={e.collumn + e.row}
+												onClick={this.selectBox}
+												onKeyDown={this.handleChange}
+												tabIndex='0'
+											>	
+												{e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
+												<div className={this.classList(
+														'notes', 
+														this.state[e.row + e.collumn].num > 0 && 'hidden'
+													)}
+												>
+													{
+														this.state[e.row+e.collumn].notes.map((elem, index) => {
+															return (
+																<div 
+																	className={this.classList(
+																		'note', 
+																		!elem.active && 'inactive',
+																		this.state[e.row + e.collumn].num > 0 && 'hidden'
+																	)}
+																	key={index}
+																>
+																	{elem.num}
+																</div>
+															)
+														})
+													}
+												</div>
+											</div>
+										)
+									})
+								}
+								</div>
+							)					
+						})
+					}
+				</div>
+				<Control buttonChange={this.buttonChange} buttonClear={this.buttonClear} buttonHint={this.buttonHint} buttonNotes={this.buttonNotes}/>
 			</div>
 		)
 	}
