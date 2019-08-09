@@ -40,10 +40,10 @@ let board = [[	{row:'A', collumn: 'A', group: '1', num: '8', set: true, answer: 
 			 	{row:'I', collumn: 'G', group: '9', num: '', set: false, answer: '5'},{row:'I', collumn: 'H', group: '9', num: '', set: false, answer: '2'},{row:'I', collumn: 'I', group: '9', num: '', set: false, answer: '4'}],
 			]
 
+			const history = []
+
 class Sudoku extends React.Component {
 	state = {
-		turn: 0,
-		history: [],
 		notes: false,
 		selectedNum: '',
 		selectedBox: '',
@@ -60,7 +60,6 @@ class Sudoku extends React.Component {
 			selectedCol: event.currentTarget.getAttribute('collumn'),
 			selectedGroup: event.currentTarget.getAttribute('group')
 		})
-		console.log(this.state)
 	}
 
 	
@@ -69,6 +68,9 @@ class Sudoku extends React.Component {
 	}
 
 	handleChange = (event) => {
+		if (isFinite(event.key) && event.key > 0) {
+			history.push(this.state)
+		}
 
 		if (this.state.notes) {
 			let copystateNotes = JSON.parse(JSON.stringify(this.state[event.currentTarget.getAttribute('box')]))
@@ -83,26 +85,16 @@ class Sudoku extends React.Component {
 		} else {
 			let copystate = JSON.parse(JSON.stringify(this.state[event.currentTarget.getAttribute('box')]))
 			copystate.num = event.key
-			if (isFinite(event.key) && event.key > 0 && event.key !== 'Alt') {
+			if (isFinite(event.key) && event.key > 0) {
 				this.setState({
 					[event.currentTarget.getAttribute('box')]: copystate
 				})
 			}
 		}
-
-		let copyHist = JSON.parse(JSON.stringify(this.state))
-		if (copyHist.history.length > 2) {
-			copyHist.history.shift()
-		}
-		copyHist.history.push(this.state)
-		this.setState({
-			turn: this.state.turn + 1,
-			history: copyHist.history
-		})
 	}
 
 	buttonChange = (value) => {
-
+		history.push(this.state)
 		if (this.state.notes) {
 			let copystateNotes = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
 			copystateNotes.notes.forEach((ele) => {
@@ -120,18 +112,10 @@ class Sudoku extends React.Component {
 				[this.state.selectedBox]: copystate
 			})
 		} 
-		let copyHist = JSON.parse(JSON.stringify(this.state))
-		if (copyHist.history.length > 2) {
-			copyHist.history.shift()
-		}
-		copyHist.history.push(this.state)
-		this.setState({
-			turn: this.state.turn + 1,
-			history: copyHist.history
-		})
 	}
 
 	buttonClear = () => {
+		history.push(this.state)
 		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
 		copystate.num = ''
 		copystate.notes =  [{num: '1', active: false},
@@ -150,6 +134,7 @@ class Sudoku extends React.Component {
 	}
 
 	buttonHint = () => {
+		history.push(this.state)
 		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
 		copystate.num = this.state[this.state.selectedBox].answer
 		this.setState({
@@ -165,7 +150,16 @@ class Sudoku extends React.Component {
 
 	buttonUndo = () => {
 		this.setState({
-			...this.state.history[this.state.history.length - 1]
+			...history[history.length - 1]
+		}, () => {
+			history.pop(); 
+			this.setState({
+				selectedNum: '',
+				selectedBox: '',
+				selectedRow: '',
+				selectedCol: '',
+				selectedGroup: '',
+			})
 		})
 	}
 

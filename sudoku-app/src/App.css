@@ -30,17 +30,17 @@
 	font-size: 35px;
 }
 
-.box:hover:not(.selectedNum, .note, .notes) {
+.box:hover:not(.selectedNum) {
 	transition: background-color 0.5s ease;
 	background-color: lightblue;
 }
 
-.selectedNum:not(.selected, .note, .notes) {
+.selectedNum:not(.selected) {
 	transition: background-color 0.5s ease;
 	background-color: lightgrey;
 }
 
-.selectedOth:not(.selected, .note, .notes) {
+.selectedOth:not(.selected) {
 	transition: background-color 0.5s ease;
 	background-color: lightblue;
 }
