@@ -50,7 +50,7 @@
 	background-color: grey;
 }
 
-.wrong:not(.set, .note, .notes) {
+.wrong:not(.set) {
 	transition: color 0.5s ease;
 	color: red;
 }
@@ -66,6 +66,7 @@
 	padding: 0;
 	display: flex;
 	flex-wrap: wrap;
+	color: black;
 }
 
 .note {
@@ -113,4 +114,8 @@ button:hover {
 
 .clear {
 	width: 150px;
+}
+
+.activeNotes {
+	border: 8px solid teal
 }

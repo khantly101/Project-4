@@ -21,7 +21,8 @@ class Control extends React.Component {
 				<div className='extra'>
 					<button className='clear' onClick={this.props.buttonClear}>Clear</button>
 					<button className='clear' onClick={this.props.buttonHint}>Hint</button>
-					<button className='clear' onClick={this.props.buttonNotes}>Notes</button>
+					<button className={this.props.classList('clear', this.props.notes && 'activeNotes')} onClick={this.props.buttonNotes}>Notes</button>
+					<button className='clear' onClick={this.props.buttonUndo}>Undo</button>
 				</div>
 			</div>
 		)
