@@ -1,33 +1,55 @@
-.App {
-  text-align: center;
+.board {
+	border: 2px solid black;
+	height: 480px;
+	width: 480px;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.inner {
+	border: 2px solid black;
+	width: 156px;
+	height: 156px;
+	display: flex;
+	flex-wrap: wrap;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.box {
+	border: 1px solid grey;
+	height: 50px;
+	width: 50px;
+	margin: 0;
+	text-align: center;
+	line-height: 50px;
+	font-size: 35px;
 }
 
-.App-link {
-  color: #61dafb;
+.box:hover:not(.selectedNum) {
+	background-color: lightblue;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.selectedNum:not(.selected) {
+	background-color: lightgrey;
+}
+
+.selectedOth:not(.selected) {
+	background-color: lightblue;
+}
+
+.selected {
+	background-color: grey;
+}
+
+.wrong:not(.set) {
+	color: red;
+}
+
+.set {
+	font-weight: bold;
 }
