@@ -109,7 +109,7 @@ class Sudoku extends React.Component {
 	}
 
 	handleChange = (event) => {
-		if (isFinite(event.key) && event.key > 0) {
+		if (isFinite(event.key) && event.key > 0 && event.currentTarget.getAttribute('set') === 'false') {
 			this.history.push(this.state)
 		}
 
@@ -193,7 +193,9 @@ class Sudoku extends React.Component {
 		this.setState({
 			...this.history[this.history.length - 1]
 		}, () => {
-			this.history.pop(); 
+			if (this.history.length > 0) {
+				this.history.pop(); 
+			}
 			this.setState({
 				selectedNum: '',
 				selectedBox: '',
@@ -211,7 +213,7 @@ class Sudoku extends React.Component {
 	componentDidUpdate() {
 		let box = document.getElementsByClassName('wrong')
 		if (box.length === 0 && this.state.gamestart) {
-			console.log("You Win")
+			console.log('You Win')
 		}
 	}
 
@@ -238,6 +240,7 @@ class Sudoku extends React.Component {
 														this.state.selectedBox === (e.row + e.collumn) && 'selected',
 														this.state[e.row + e.collumn].num !== e.answer && e.set === false && 'wrong'
 													)}
+												set={e.set.toString()}
 												answer={e.answer}
 												num={e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
 												box={e.row + e.collumn} 
