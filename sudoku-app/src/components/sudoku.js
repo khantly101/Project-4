@@ -40,16 +40,37 @@ let board = [[	{row:'A', collumn: 'A', group: '1', num: '8', set: true, answer: 
 			 	{row:'I', collumn: 'G', group: '9', num: '', set: false, answer: '5'},{row:'I', collumn: 'H', group: '9', num: '', set: false, answer: '2'},{row:'I', collumn: 'I', group: '9', num: '', set: false, answer: '4'}],
 			]
 
-			const history = []
-
 class Sudoku extends React.Component {
 	state = {
+		board: [],
 		notes: false,
 		selectedNum: '',
 		selectedBox: '',
 		selectedRow: '',
 		selectedCol: '',
 		selectedGroup: '',
+	}
+
+	history = []
+
+	getGame = () => {
+		fetch('http://localhost:3000/sudoku_games/1')
+			.then(response => response.json())
+			.then(json => {
+				console.log(this.state)
+				let copyBoard = JSON.parse(JSON.stringify(board))
+				copyBoard.forEach((ele, index) => {
+					ele.answer = json.answer[index]
+					ele.set = json.filled[index]
+					if (json.filled[index]) {
+						ele.num = json.answer[index]
+					}
+				})
+				this.setState({
+					board: copyBoard
+				}, () => {console.log(this.state.board)})
+			})
+			.catch(error => console.error(error))
 	}
 
 	selectBox = (event) => {
@@ -61,7 +82,6 @@ class Sudoku extends React.Component {
 			selectedGroup: event.currentTarget.getAttribute('group')
 		})
 	}
-
 	
 	classList = (...classes) => {
 		return classes.filter(item => !!item).join(' ')
@@ -69,7 +89,7 @@ class Sudoku extends React.Component {
 
 	handleChange = (event) => {
 		if (isFinite(event.key) && event.key > 0) {
-			history.push(this.state)
+			this.history.push(this.state)
 		}
 
 		if (this.state.notes) {
@@ -94,7 +114,7 @@ class Sudoku extends React.Component {
 	}
 
 	buttonChange = (value) => {
-		history.push(this.state)
+		this.history.push(this.state)
 		if (this.state.notes) {
 			let copystateNotes = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
 			copystateNotes.notes.forEach((ele) => {
@@ -115,7 +135,7 @@ class Sudoku extends React.Component {
 	}
 
 	buttonClear = () => {
-		history.push(this.state)
+		this.history.push(this.state)
 		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
 		copystate.num = ''
 		copystate.notes =  [{num: '1', active: false},
@@ -134,7 +154,7 @@ class Sudoku extends React.Component {
 	}
 
 	buttonHint = () => {
-		history.push(this.state)
+		this.history.push(this.state)
 		let copystate = JSON.parse(JSON.stringify(this.state[this.state.selectedBox]))
 		copystate.num = this.state[this.state.selectedBox].answer
 		this.setState({
@@ -150,9 +170,9 @@ class Sudoku extends React.Component {
 
 	buttonUndo = () => {
 		this.setState({
-			...history[history.length - 1]
+			...this.history[this.history.length - 1]
 		}, () => {
-			history.pop(); 
+			this.history.pop(); 
 			this.setState({
 				selectedNum: '',
 				selectedBox: '',
@@ -164,6 +184,7 @@ class Sudoku extends React.Component {
 	}
 
 	componentWillMount() {
+		this.getGame()
 		board.forEach((ele) => {
 			ele.forEach((e) => {
 				this.setState({
@@ -198,7 +219,7 @@ class Sudoku extends React.Component {
 			<div>
 				<div className='board'>
 					{
-						board.map((ele, index) => {
+						this.state.board.map((ele, index) => {
 							return (
 								<div className='inner' group={index} key={index}>
 								{
