@@ -1,10 +1,12 @@
 import React 		from 'react'
-import Control 	from './controls.js'
+import Control 		from './controls.js'
+import Difficulty 	from './difficulty.js'
 
 import '../App.css'
 
 class Sudoku extends React.Component {
 	state = {
+		difficulty: 'easy',
 		board: [],
 		gamestart: false,
 		notes: false,
@@ -55,10 +57,20 @@ class Sudoku extends React.Component {
 	history = []
 
 	getGame = () => {
-		fetch('http://localhost:3000/sudokus')
+		let url = ''
+		if (this.state.difficulty === 'easy') {
+			url = 'http://localhost:3000/sudokus'
+		} else if (this.state.difficulty === 'medium') {
+			url = 'http://localhost:3000/sudokums'
+		} else if (this.state.difficulty === 'hard') {
+			url = 'http://localhost:3000/sudokuhs'
+		} else if (this.state.difficulty === 'expert') {
+			url = 'http://localhost:3000/sudokues'
+		}
+
+		fetch(url)
 			.then(response => response.json())
 			.then(json => {
-				console.log(json)
 				let copyBoard = JSON.parse(JSON.stringify(this.board))
 				copyBoard.forEach((ele, index) => {
 					ele.forEach((e, i) => {
@@ -70,6 +82,13 @@ class Sudoku extends React.Component {
 							e.set = false
 						}
 						this.setState({
+							gamestart: false,
+							notes: false,
+							selectedNum: '',
+							selectedBox: '',
+							selectedRow: '',
+							selectedCol: '',
+							selectedGroup: '',
 							[e.row + e.collumn]: {	num: e.num, 
 													answer: e.answer, 
 													notes: [{num: '1', active: false},
@@ -91,6 +110,7 @@ class Sudoku extends React.Component {
 					gamestart: true,
 					board: copyBoard
 				})
+				this.history = []
 			})
 			.catch(error => console.error(error))
 	}
@@ -207,6 +227,10 @@ class Sudoku extends React.Component {
 		})
 	}
 
+	difficultyChange = (event) => {
+		this.setState({difficulty: event.target.value},()=>{this.getGame()})
+	}
+
 	componentWillMount() {
 		this.getGame()
 	}
@@ -221,6 +245,7 @@ class Sudoku extends React.Component {
 	render () {
 		return (
 			<div>
+				<Difficulty difficultyChange={this.difficultyChange} getGame={this.getGame}/>
 				<div className='board'>
 					{
 						this.state.board.map((ele, index) => {

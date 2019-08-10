@@ -119,3 +119,13 @@ button:hover {
 .activeNotes {
 	border: 8px solid teal
 }
+
+.difficulty {
+	
+}
+
+.new {
+	font-size: 10px;
+	width: 75px;
+	height: 18px;
+}
