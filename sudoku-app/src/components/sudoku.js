@@ -55,9 +55,10 @@ class Sudoku extends React.Component {
 	history = []
 
 	getGame = () => {
-		fetch('http://localhost:3000/sudokus/1')
+		fetch('http://localhost:3000/sudokus')
 			.then(response => response.json())
 			.then(json => {
+				console.log(json)
 				let copyBoard = JSON.parse(JSON.stringify(this.board))
 				copyBoard.forEach((ele, index) => {
 					ele.forEach((e, i) => {
