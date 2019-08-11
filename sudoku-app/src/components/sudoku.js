@@ -59,13 +59,13 @@ class Sudoku extends React.Component {
 	getGame = () => {
 		let url = ''
 		if (this.state.difficulty === 'easy') {
-			url = 'http://localhost:3000/sudokus'
+			url = 'http://localhost:3000/sudokus/game'
 		} else if (this.state.difficulty === 'medium') {
-			url = 'http://localhost:3000/sudokums'
+			url = 'http://localhost:3000/sudokums/game'
 		} else if (this.state.difficulty === 'hard') {
-			url = 'http://localhost:3000/sudokuhs'
+			url = 'http://localhost:3000/sudokuhs/game'
 		} else if (this.state.difficulty === 'expert') {
-			url = 'http://localhost:3000/sudokues'
+			url = 'http://localhost:3000/sudokues/game'
 		}
 
 		fetch(url)
