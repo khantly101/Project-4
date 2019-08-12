@@ -231,7 +231,7 @@ class Sudoku extends React.Component {
 		this.setState({difficulty: event.target.value},()=>{this.getGame()})
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getGame()
 	}
 
@@ -247,67 +247,68 @@ class Sudoku extends React.Component {
 			<div>
 				<Difficulty difficultyChange={this.difficultyChange} getGame={this.getGame}/>
 				<div className='board'>
-					{
-						this.state.board.map((ele, index) => {
-							return (
-								<div className='inner' group={index} key={index}>
-								{
-									ele.map((e) => {
-										return (
-											<div 
-												className={this.classList(
-														'box', 
-														e.set && 'set',
-														this.state.selectedNum === e.num && this.state.selectedNum > 0 && 'selectedOth',
-														this.state.selectedNum === this.state[e.row + e.collumn].num && this.state[e.row + e.collumn].num > 0 && 'selectedOth',
-														this.state.selectedRow === e.row && 'selectedNum',
-														this.state.selectedGroup === e.group && 'selectedNum',
-														this.state.selectedCol === e.collumn && 'selectedNum', 
-														this.state.selectedBox === (e.row + e.collumn) && 'selected',
-														this.state[e.row + e.collumn].num !== e.answer && e.set === false && 'wrong'
-													)}
-												set={e.set.toString()}
-												answer={e.answer}
-												num={e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
-												box={e.row + e.collumn} 
-												row={e.row}
-												collumn={e.collumn}
-												group={e.group} 
-												key={e.collumn + e.row}
-												onClick={this.selectBox}
-												onKeyDown={this.handleChange}
-												tabIndex='0'
-											>	
-												{e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
-												<div className={this.classList(
-														'notes', 
-														this.state[e.row + e.collumn].num > 0 && 'hidden'
-													)}
-												>
-													{
-														this.state[e.row+e.collumn].notes.map((elem, index) => {
-															return (
-																<div 
-																	className={this.classList(
-																		'note', 
-																		!elem.active && 'inactive',
-																		this.state[e.row + e.collumn].num > 0 && 'hidden'
-																	)}
-																	key={index}
-																>
-																	{elem.num}
-																</div>
-															)
-														})
-													}
+					{	
+						this.state.gamestart ?
+							this.state.board.map((ele, index) => {
+								return (
+									<div className='inner' group={index} key={index}>
+									{
+										ele.map((e) => {
+											return (
+												<div 
+													className={this.classList(
+															'box', 
+															e.set && 'set',
+															this.state.selectedNum === e.num && this.state.selectedNum > 0 && 'selectedOth',
+															this.state.selectedNum === this.state[e.row + e.collumn].num && this.state[e.row + e.collumn].num > 0 && 'selectedOth',
+															this.state.selectedRow === e.row && 'selectedNum',
+															this.state.selectedGroup === e.group && 'selectedNum',
+															this.state.selectedCol === e.collumn && 'selectedNum', 
+															this.state.selectedBox === (e.row + e.collumn) && 'selected',
+															this.state[e.row + e.collumn].num !== e.answer && e.set === false && 'wrong'
+														)}
+													set={e.set.toString()}
+													answer={e.answer}
+													num={e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
+													box={e.row + e.collumn} 
+													row={e.row}
+													collumn={e.collumn}
+													group={e.group} 
+													key={e.collumn + e.row}
+													onClick={this.selectBox}
+													onKeyDown={this.handleChange}
+													tabIndex='0'
+												>	
+													{e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
+													<div className={this.classList(
+															'notes', 
+															this.state[e.row + e.collumn].num > 0 && 'hidden'
+														)}
+													>
+														{
+															this.state[e.row+e.collumn].notes.map((elem, index) => {
+																return (
+																	<div 
+																		className={this.classList(
+																			'note', 
+																			!elem.active && 'inactive',
+																			this.state[e.row + e.collumn].num > 0 && 'hidden'
+																		)}
+																		key={index}
+																	>
+																		{elem.num}
+																	</div>
+																)
+															})
+														}
+													</div>
 												</div>
-											</div>
-										)
-									})
-								}
-								</div>
-							)					
-						})
+											)
+										})
+									}
+									</div>
+								)					
+							}) : null
 					}
 				</div>
 				<Control 	

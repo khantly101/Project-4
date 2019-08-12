@@ -1,9 +1,11 @@
 import React 		from 'react'
+import { Link } 	from 'react-router-dom'
 
 import '../App.css'
 
 class Index extends React.Component {
 	state = {
+		loaded: false,
 		easy: [],
 		medium: [],
 		hard: [],
@@ -38,9 +40,44 @@ class Index extends React.Component {
 				expert: json
 			})
 		})
+
+		this.setState({
+			loaded: true
+		})
 	}
 
-	componentWillMount () {
+	handleDelete = (id, difficulty) => {
+		let url = ''
+		if (difficulty === 'easy') {
+			url = 'http://localhost:3000/sudokus/'
+		} else if (difficulty === 'medium') {
+			url = 'http://localhost:3000/sudokums/'
+		} else if (difficulty === 'hard') {
+			url = 'http://localhost:3000/sudokuhs/'
+		} else if (difficulty === 'expert') {
+			url = 'http://localhost:3000/sudokues/'
+		}
+
+
+
+		fetch(url + id, {
+			method: 'DELETE',
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(json => {
+			const deletedGame = this.state[difficulty].filter((ele) => ele.id !== id)
+			this.setState({
+				[difficulty]: deletedGame
+			})
+		})
+		.catch (error => console.error({'Error': error}))
+	}
+
+
+	componentDidMount () {
 		this.getData()
 	}
 
@@ -55,17 +92,28 @@ class Index extends React.Component {
 							<th>Game</th>
 						</tr>
 					</tbody>
-					{
-						this.state.easy.map((ele, index) => {
-							return (
-								<tbody key={index}>
-									<tr>
-										<td>{ele.id}</td>
-										<td>{ele.game}</td>
-									</tr>
-								</tbody>
-							)
-						})
+					{	
+						this.state.loaded ? 
+							this.state.easy.map((ele, index) => {
+								return (
+									<tbody key={index}>
+										<tr>
+											<td>{ele.id}</td>
+											<td>{ele.game}</td>
+											<td><button onClick={()=>{this.handleDelete(ele.id,'easy')}}>Delete</button></td>
+											<td><Link to={{ 
+													pathname: '/Update',
+													state: {
+														id: ele.id,
+														game: ele.game,
+														difficulty: 'easy'
+													}
+												}}>Update</Link>
+											</td>
+										</tr>
+									</tbody>
+								)
+							}) : null
 					}
 				</table>
 				<br />

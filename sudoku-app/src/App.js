@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } 	from 'react-router-dom'
 import Sudoku 								from './components/sudoku.js'
 import Index								from './components/index.js'
 import Create 								from './components/create.js'
+import Update 								from './components/update.js'
 
 import './App.css'
 
@@ -14,6 +15,7 @@ class App extends React.Component {
 					<Route path='/' exact component={Sudoku} />
 					<Route path='/index' component={Index} />
 					<Route path='/create' component={Create} />
+					<Route path='/update' component={Update} />
 				</div>
 			</Router>
 		)

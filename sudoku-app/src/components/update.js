@@ -1,6 +1,6 @@
 import React 			from 'react'
 import { Redirect }		from 'react-router'
-import Createcontrol 	from './createcontrols.js'
+import Updatecontrols 	from './updatecontrols.js'
 
 
 import '../App.css'
@@ -9,7 +9,6 @@ class Sudoku extends React.Component {
 	state = {
 		ready: false,
 		redirect: false,
-		difficulty: 'easy',
 		selectedNum: '',
 		selectedBox: '',
 		selectedRow: '',
@@ -55,13 +54,23 @@ class Sudoku extends React.Component {
 			]
 
 	getGame = () => {
-		this.board.forEach((ele, index) => {
+		let copyBoard = JSON.parse(JSON.stringify(this.board))
+		let game = this.props.location.state.game
+		copyBoard.forEach((ele, index) => {
 			ele.forEach((e, i) => {
+				e.num = game[index][i][0]
+				if (game[index][i][1] === 't') {
+					e.set = true
+				} else {
+					e.set = false
+				}
 				this.setState({
-					[e.row + e.collumn]: {	num: e.num, set: false, },
-					ready: true
+					ready: true,
+					[e.row + e.collumn]: {	num: e.num, 
+											set: e.set, 
+										}		
 				})
-			})	
+			})
 		})
 	}
 
@@ -80,19 +89,19 @@ class Sudoku extends React.Component {
 
 
 		let url = ''
-		if (this.state.difficulty === 'easy') {
+		if (this.props.location.state.difficulty === 'easy') {
 			url = 'http://localhost:3000/sudokus/'
-		} else if (this.state.difficulty === 'medium') {
+		} else if (this.props.location.state.difficulty === 'medium') {
 			url = 'http://localhost:3000/sudokums/'
-		} else if (this.state.difficulty === 'hard') {
+		} else if (this.props.location.state.difficulty === 'hard') {
 			url = 'http://localhost:3000/sudokuhs/'
-		} else if (this.state.difficulty === 'expert') {
+		} else if (this.props.location.state.difficulty === 'expert') {
 			url = 'http://localhost:3000/sudokues/'
 		}
 
 
-		fetch(url, {
-			method: 'POST',
+		fetch(url + this.props.location.state.id, {
+			method: 'PUT',
 			body: JSON.stringify({game: newGame}),
 			headers: {
 				'Accept': 'application/json',
@@ -159,12 +168,9 @@ class Sudoku extends React.Component {
 		})
 	}
 
-	difficultyChange = (event) => {
-		this.setState({difficulty: event.target.value})
-	}
-
 	componentDidMount() {
 		this.getGame()
+		console.log(this.props.location.state)
 	}
 
 	render () {
@@ -211,8 +217,7 @@ class Sudoku extends React.Component {
 						})
 					}
 				</div>
-				<Createcontrol 
-						difficultyChange={this.difficultyChange}
+				<Updatecontrols 
 						buttonChange={this.buttonChange} 
 						buttonClear={this.buttonClear} 
 						handleSubmit={this.handleSubmit}
