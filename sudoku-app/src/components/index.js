@@ -237,6 +237,9 @@ class Index extends React.Component {
 				<br />
 				<br />
 				<br />
+				{
+					this.props.state.admin ? null : <Redirect to='/'/>
+				}
 			</div>
 		)
 	}

@@ -59,9 +59,9 @@ class App extends React.Component {
 				<div>
 					<Header handleSubmit={this.handleSubmit} handleChange={this.handleChange} logOut={this.logOut} state={this.state}/>
 					<Route path='/' exact component={Sudoku} />
-					<Route path='/index' component={Index} />
-					<Route path='/create' component={Create} />
-					<Route path='/update' component={Update} />
+					<Route path='/index' render={() => <Index state={this.state}/>} />
+					<Route path='/create' render={() => <Create state={this.state}/>} />
+					<Route path='/update' render={() => <Update state={this.state}/>} />
 					{
 						this.state.admin ? null : <Redirect from="*" to="/" />
 					}

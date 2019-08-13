@@ -223,6 +223,9 @@ class Sudoku extends React.Component {
 				{
 					this.state.redirect ?  <Redirect to='/index'/> : null
 				}
+				{
+					this.props.state.admin ? null : <Redirect to='/'/>
+				}
 			</div>
 		)
 	}
