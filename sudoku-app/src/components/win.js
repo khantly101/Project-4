@@ -9,7 +9,7 @@ class Header extends React.Component {
 			<div className='winBox'>
 				<div className='win'>
 					<div className='banner'></div>
-					<h2 className='victory'><MaterialIcon icon="cake" size='tiny' /> You Win! <MaterialIcon icon="cake" size='tiny' /></h2>
+					<h2 className='victory'><MaterialIcon icon='cake' size='tiny' /> You Win! <MaterialIcon icon='cake' size='tiny' /></h2>
 					<button className='restart' onClick={this.props.getGame}>New Game</button>
 				</div>
 			</div>

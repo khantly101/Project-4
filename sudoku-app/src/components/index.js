@@ -84,12 +84,15 @@ class Index extends React.Component {
 	render () {
 		return (
 			<div>
+				<br />
 				<table>
-					<caption>Easy</caption>
 					<tbody>
 						<tr>
+							<th>Easy</th>
+							<th>|</th>
 							<th>ID</th>
-							<th>Game</th>
+							<th>Delete</th>
+							<th>Update</th>
 						</tr>
 					</tbody>
 					{	
@@ -98,9 +101,10 @@ class Index extends React.Component {
 								return (
 									<tbody key={index}>
 										<tr>
+											<td></td>
+											<td>|</td>
 											<td>{ele.id}</td>
-											<td>{ele.game}</td>
-											<td><button onClick={()=>{this.handleDelete(ele.id,'easy')}}>Delete</button></td>
+											<td><button className='delete' onClick={()=>{this.handleDelete(ele.id,'easy')}}>Delete</button></td>
 											<td><Link to={{ 
 													pathname: '/Update',
 													state: {
@@ -108,7 +112,7 @@ class Index extends React.Component {
 														game: ele.game,
 														difficulty: 'easy'
 													}
-												}}>Update</Link>
+												}}><button className='delete'>Update</button></Link>
 											</td>
 										</tr>
 									</tbody>
@@ -120,74 +124,119 @@ class Index extends React.Component {
 				<br />
 				<br />
 				<table>
-					<caption>Medium</caption>
 					<tbody>
 						<tr>
+							<th>Medium</th>
+							<th>|</th>
 							<th>ID</th>
-							<th>Game</th>
+							<th>Delete</th>
+							<th>Update</th>
 						</tr>
 					</tbody>
-					{
-						this.state.medium.map((ele, index) => {
-							return (
-								<tbody key={index}>
-									<tr>
-										<td>{ele.id}</td>
-										<td>{ele.game}</td>
-									</tr>
-								</tbody>
-							)
-						})
+					{	
+						this.state.loaded ? 
+							this.state.medium.map((ele, index) => {
+								return (
+									<tbody key={index}>
+										<tr>
+											<td></td>
+											<td>|</td>
+											<td>{ele.id}</td>
+											<td><button className='delete' onClick={()=>{this.handleDelete(ele.id,'medium')}}>Delete</button></td>
+											<td><Link to={{ 
+													pathname: '/Update',
+													state: {
+														id: ele.id,
+														game: ele.game,
+														difficulty: 'medium'
+													}
+												}}><button className='delete'>Update</button></Link>
+											</td>
+										</tr>
+									</tbody>
+								)
+							}) : null
 					}
 				</table>
 				<br />
 				<br />
 				<br />
 				<table>
-					<caption>Hard</caption>
 					<tbody>
 						<tr>
+							<th>Hard</th>
+							<th>|</th>
 							<th>ID</th>
-							<th>Game</th>
+							<th>Delete</th>
+							<th>Update</th>
 						</tr>
 					</tbody>
-					{
-						this.state.hard.map((ele, index) => {
-							return (
-								<tbody key={index}>
-									<tr>
-										<td>{ele.id}</td>
-										<td>{ele.game}</td>
-									</tr>
-								</tbody>
-							)
-						})
+					{	
+						this.state.loaded ? 
+							this.state.hard.map((ele, index) => {
+								return (
+									<tbody key={index}>
+										<tr>
+											<td></td>
+											<td>|</td>
+											<td>{ele.id}</td>
+											<td><button className='delete' onClick={()=>{this.handleDelete(ele.id,'hard')}}>Delete</button></td>
+											<td><Link to={{ 
+													pathname: '/Update',
+													state: {
+														id: ele.id,
+														game: ele.game,
+														difficulty: 'hard'
+													}
+												}}><button className='delete'>Update</button></Link>
+											</td>
+										</tr>
+									</tbody>
+								)
+							}) : null
 					}
 				</table>
 				<br />
 				<br />
 				<br />
 				<table>
-					<caption>Expert</caption>
 					<tbody>
 						<tr>
+							<th>Expert</th>
+							<th>|</th>
 							<th>ID</th>
-							<th>Game</th>
+							<th>Delete</th>
+							<th>Update</th>
 						</tr>
 					</tbody>
-					{
-						this.state.expert.map((ele, index) => {
-							return (
-								<tbody key={index}>
-									<tr>
-										<td>{ele.id}</td>
-										<td>{ele.game}</td>
-									</tr>
-								</tbody>
-							)
-						})
+					{	
+						this.state.loaded ? 
+							this.state.expert.map((ele, index) => {
+								return (
+									<tbody key={index}>
+										<tr>
+											<td></td>
+											<td>|</td>
+											<td>{ele.id}</td>
+											<td><button className='delete' onClick={()=>{this.handleDelete(ele.id,'expert')}}>Delete</button></td>
+											<td><Link to={{ 
+													pathname: '/Update',
+													state: {
+														id: ele.id,
+														game: ele.game,
+														difficulty: 'expert'
+													}
+												}}><button className='delete'>Update</button></Link>
+											</td>
+										</tr>
+									</tbody>
+								)
+							}) : null
 					}
 				</table>
+				<br />
+				<br />
+				<br />
 			</div>
 		)
 	}

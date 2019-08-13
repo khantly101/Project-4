@@ -1,4 +1,5 @@
 import React 		from 'react'
+import MaterialIcon 	from 'material-icons-react'
 
 import '../App.css'
 
@@ -6,7 +7,7 @@ class Createcontrols extends React.Component {
 	render () {
 		return (
 			<div className='controls'>
-				<div>
+				<div className='butNum'>
 					<button onClick={()=>{this.props.buttonChange('1')}}>1</button>
 					<button onClick={()=>{this.props.buttonChange('2')}}>2</button>
 					<button onClick={()=>{this.props.buttonChange('3')}}>3</button>
@@ -19,9 +20,11 @@ class Createcontrols extends React.Component {
 				</div>
 				<br />
 				<div className='extra'>
-					<button className='clear' onClick={this.props.buttonClear}>Clear</button>
-					<button className='clear' onClick={this.props.buttonSet}>Set</button>
-					<button className='clear' onClick={this.props.handleSubmit}>Submit</button>
+					<button className='clear' onClick={this.props.buttonClear}> <MaterialIcon icon='delete_outline' size='tiny' /> Clear</button>
+					<button className='clear' onClick={this.props.buttonSet}> <MaterialIcon icon='save_alt' size='tiny' /> Set</button>
+					<br />
+					<br />
+					<button className='clear' onClick={this.props.handleSubmit}> <MaterialIcon icon='save' size='tiny' /> Submit</button>
 				</div>
 			</div>
 		)

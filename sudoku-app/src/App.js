@@ -41,6 +41,12 @@ class App extends React.Component {
 		})
 	}
 
+	logOut = () => {
+		this.setState({
+			admin: false
+		})
+	}
+
 	handleChange = (event) => {
 		this.setState({ [event.target.id]: event.target.value})
 	}
@@ -49,7 +55,7 @@ class App extends React.Component {
 		return (
 			<Router>
 				<div>
-					<Header handleSubmit={this.handleSubmit} handleChange={this.handleChange} state={this.state}/>
+					<Header handleSubmit={this.handleSubmit} handleChange={this.handleChange} logOut={this.logOut} state={this.state}/>
 					<Route path='/' exact component={Sudoku} />
 					<Route path='/index' component={Index} />
 					<Route path='/create' component={Create} />

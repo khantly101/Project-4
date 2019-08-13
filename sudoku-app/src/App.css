@@ -8,6 +8,7 @@
 	border-bottom: 2px solid lightgrey;
 	display: flex;
 	justify-content: space-between;
+	background-color: steelblue;
 }
 
 .title {
@@ -16,7 +17,7 @@
 	font-size: 3em;
 	width: 7%;
 	margin: 0 5%;
-	color: steelblue;
+	color: white;
 }
 
 .login {
@@ -100,12 +101,12 @@ input {
 
 .selected {
 	transition: background-color 0.5s ease;
-	background-color: SlateGray;
+	background-color: steelblue;
 }
 
 .wrong:not(.set) {
 	transition: color 0.5s ease;
-	color: red;
+	color: crimson;
 }
 
 .set {
@@ -168,11 +169,12 @@ button {
 	border-radius: 10px;
 	border: .5px solid black;
 	background-color: white;
+	font-family: 'Frank Ruhl Libre', serif;
 }
 
-button:hover {
+button:hover:not(.aboutButton) {
 	transition: border .2s ease;
-	border: 3px solid teal;
+	border: 3px solid steelblue;
 }
 
 .extra {
@@ -189,7 +191,7 @@ button:hover {
 
 .activeNotes {
 	transition: border .2s ease;
-	border: 3px solid teal
+	border: 3px solid steelblue
 }
 
 /*/////////////*/
@@ -206,6 +208,7 @@ button:hover {
 .select {
 	width: 110px;
 	margin-left: 15px;
+	border-radius: 5px;
 }
 
 /*/////////////*/
@@ -250,4 +253,62 @@ button:hover {
 	width: 60%;
 	height: 30%;
 	background-color: steelblue;
+}
+
+/*/////////////*/
+/*Info////////*/
+/*///////////*/
+
+.info {
+	display: flex;
+	justify-content: center;
+}
+
+h3 {
+	border-bottom: 2px solid steelblue
+}
+
+.about, .how {
+	width: 300px;
+	margin: 10px;
+}
+
+.infoButton {
+	border: none;
+	width: 100%;
+	text-align: center;
+}
+
+/*/////////////*/
+/*Index///////*/
+/*///////////*/
+
+th {
+	border-bottom: 1px solid black;
+}
+
+table {
+	margin: 0 auto;
+}
+
+.delete {
+	width: 100px;
+	height: 25px;
+	font-size: 15px;
+}
+
+/*/////////////*/
+/*Admin///////*/
+/*///////////*/
+
+.adminBut, .adminButl {
+	margin-top: 20px;
+	font-size: 20px;
+	width: 75px;
+	height: 35px;
+	border: none;
+}
+
+.adminButl {
+	width: 100px;
 }

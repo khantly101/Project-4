@@ -20,10 +20,10 @@ class Control extends React.Component {
 				</div>
 				<br />
 				<div className='extra'>
-					<button className='clear' onClick={this.props.buttonClear}> <MaterialIcon icon="delete_outline" size='tiny' /> Clear</button>
-					<button className='clear' onClick={this.props.buttonHint}> <MaterialIcon icon="find_replace" size='tiny' /> Hint</button>
-					<button className={this.props.classList('clear', this.props.notes && 'activeNotes')} onClick={this.props.buttonNotes}> <MaterialIcon icon="edit" size='tiny' /> Notes {this.props.notes ? 'On':'Off'}</button>
-					<button className='clear' onClick={this.props.buttonUndo}> <MaterialIcon icon="replay" size='tiny' /> Undo</button>
+					<button className={this.props.classList('clear', this.props.notes && 'activeNotes')} onClick={this.props.buttonNotes}> <MaterialIcon icon='edit' size='tiny' /> Notes {this.props.notes ? 'On':'Off'}</button>
+					<button className='clear' onClick={this.props.buttonUndo}> <MaterialIcon icon='replay' size='tiny' /> Undo</button>
+					<button className='clear' onClick={this.props.buttonClear}> <MaterialIcon icon='delete_outline' size='tiny' /> Clear</button>
+					<button className='clear' onClick={this.props.buttonHint}> <MaterialIcon icon='find_replace' size='tiny' /> Hint</button>
 				</div>
 			</div>
 		)

@@ -3,6 +3,7 @@ import { Animate } 	from 'react-animate-mount'
 import Control 		from './controls.js'
 import Difficulty 	from './difficulty.js'
 import Win 			from './win.js'
+import Info			from './info.js'
 
 import '../App.css'
 
@@ -229,7 +230,6 @@ class Sudoku extends React.Component {
 				selectedRow: '',
 				selectedCol: '',
 				selectedGroup: '',
-				win: true,
 			})
 		})
 	}
@@ -337,6 +337,7 @@ class Sudoku extends React.Component {
 						/>
 					</div>
 				</div>
+				<Info />
 			</div>
 		)
 	}

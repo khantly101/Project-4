@@ -175,7 +175,7 @@ class Sudoku extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<div className='container'>
 				<div className='board'>
 					{
 						this.board.map((ele, index) => {
@@ -217,12 +217,14 @@ class Sudoku extends React.Component {
 						})
 					}
 				</div>
-				<Updatecontrols 
-						buttonChange={this.buttonChange} 
-						buttonClear={this.buttonClear} 
-						handleSubmit={this.handleSubmit}
-						buttonSet={this.buttonSet}
-				/>
+				<div className='controlBox'>
+					<Updatecontrols 
+							buttonChange={this.buttonChange} 
+							buttonClear={this.buttonClear} 
+							handleSubmit={this.handleSubmit}
+							buttonSet={this.buttonSet}
+					/>
+				</div>
 				{
 					this.state.redirect ?  <Redirect to='/index'/> : null
 				}
