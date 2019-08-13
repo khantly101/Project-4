@@ -2,8 +2,10 @@
   "name": "sudoku-app",
   "version": "0.1.0",
   "proxy": "http://localhost:3000",
+  "homepage": "https://khantly101.github.io/sudoku-front-end/",
   "private": true,
   "dependencies": {
+    "gh-pages": "^2.1.1",
     "material-icons-react": "^1.0.4",
     "react": "^16.8.6",
     "react-animate-mount": "^1.0.1",
@@ -15,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
