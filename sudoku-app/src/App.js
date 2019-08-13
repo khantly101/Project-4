@@ -58,9 +58,9 @@ class App extends React.Component {
 				<div>
 					<Header handleSubmit={this.handleSubmit} handleChange={this.handleChange} logOut={this.logOut} state={this.state}/>
 					<Route path='/' exact component={Sudoku} />
-					<Route path='/index' render={() => <Index state={this.state}/>} />
-					<Route path='/create' render={() => <Create state={this.state}/>} />
-					<Route path='/update' render={() => <Update state={this.state}/>} />
+					<Route path='/index' render={(routeProps) => <Index {...routeProps} state={this.state}/>} />
+					<Route path='/create' render={(routeProps) => <Create {...routeProps} state={this.state}/>} />
+					<Route path='/update' render={(routeProps) => <Update {...routeProps} state={this.state}/>} />
 				</div>
 			</HashRouter>
 		)

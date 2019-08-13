@@ -54,26 +54,24 @@ class Sudoku extends React.Component {
 			]
 
 	getGame = () => {
-		// let copyBoard = JSON.parse(JSON.stringify(this.board))
-		// let game = this.props.location.state.game
-		// copyBoard.forEach((ele, index) => {
-		// 	ele.forEach((e, i) => {
-		// 		e.num = game[index][i][0]
-		// 		if (game[index][i][1] === 't') {
-		// 			e.set = true
-		// 		} else {
-		// 			e.set = false
-		// 		}
-		// 		this.setState({
-		// 			ready: true,
-		// 			[e.row + e.collumn]: {	num: e.num, 
-		// 									set: e.set, 
-		// 								}		
-		// 		})
-		// 	})
-		// })
-		console.log(this.props.location)
-
+		let copyBoard = JSON.parse(JSON.stringify(this.board))
+		let game = this.props.location.state.game
+		copyBoard.forEach((ele, index) => {
+			ele.forEach((e, i) => {
+				e.num = game[index][i][0]
+				if (game[index][i][1] === 't') {
+					e.set = true
+				} else {
+					e.set = false
+				}
+				this.setState({
+					ready: true,
+					[e.row + e.collumn]: {	num: e.num, 
+											set: e.set, 
+										}		
+				})
+			})
+		})
 	}
 
 	handleSubmit = (event) => {
