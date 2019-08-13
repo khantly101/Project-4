@@ -1,4 +1,5 @@
-import React 		from 'react'
+import React 			from 'react'
+import MaterialIcon 	from 'material-icons-react'
 
 import '../App.css'
 
@@ -6,7 +7,7 @@ class Control extends React.Component {
 	render () {
 		return (
 			<div className='controls'>
-				<div>
+				<div className='butNum'>
 					<button onClick={()=>{this.props.buttonChange('1')}}>1</button>
 					<button onClick={()=>{this.props.buttonChange('2')}}>2</button>
 					<button onClick={()=>{this.props.buttonChange('3')}}>3</button>
@@ -19,10 +20,10 @@ class Control extends React.Component {
 				</div>
 				<br />
 				<div className='extra'>
-					<button className='clear' onClick={this.props.buttonClear}>Clear</button>
-					<button className='clear' onClick={this.props.buttonHint}>Hint</button>
-					<button className={this.props.classList('clear', this.props.notes && 'activeNotes')} onClick={this.props.buttonNotes}>Notes</button>
-					<button className='clear' onClick={this.props.buttonUndo}>Undo</button>
+					<button className='clear' onClick={this.props.buttonClear}> <MaterialIcon icon="delete_outline" size='tiny' /> Clear</button>
+					<button className='clear' onClick={this.props.buttonHint}> <MaterialIcon icon="find_replace" size='tiny' /> Hint</button>
+					<button className={this.props.classList('clear', this.props.notes && 'activeNotes')} onClick={this.props.buttonNotes}> <MaterialIcon icon="edit" size='tiny' /> Notes {this.props.notes ? 'On':'Off'}</button>
+					<button className='clear' onClick={this.props.buttonUndo}> <MaterialIcon icon="undo" size='tiny' /> Undo</button>
 				</div>
 			</div>
 		)

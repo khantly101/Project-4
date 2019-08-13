@@ -245,7 +245,7 @@ class Sudoku extends React.Component {
 	render () {
 		return (
 			<div>
-				<Difficulty difficultyChange={this.difficultyChange} getGame={this.getGame}/>
+			<div className='container'>
 				<div className='board'>
 					{	
 						this.state.gamestart ?
@@ -311,15 +311,19 @@ class Sudoku extends React.Component {
 							}) : null
 					}
 				</div>
-				<Control 	
-						classList={this.classList} 
-						buttonChange={this.buttonChange} 
-						buttonClear={this.buttonClear} 
-						buttonHint={this.buttonHint} 
-						buttonNotes={this.buttonNotes} 
-						notes={this.state.notes}
-						buttonUndo={this.buttonUndo}
-				/>
+				<div className='controlBox'>
+					<Difficulty difficultyChange={this.difficultyChange} getGame={this.getGame}/>
+					<Control 	
+							classList={this.classList} 
+							buttonChange={this.buttonChange} 
+							buttonClear={this.buttonClear} 
+							buttonHint={this.buttonHint} 
+							buttonNotes={this.buttonNotes} 
+							notes={this.state.notes}
+							buttonUndo={this.buttonUndo}
+					/>
+				</div>
+			</div>
 			</div>
 		)
 	}
