@@ -17,7 +17,7 @@ class App extends React.Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault()
-		fetch('http://localhost:3000/users/login', {
+		fetch('https://mighty-dusk-62250.herokuapp.com/users/login', {
 				method: 'POST',
 				body: JSON.stringify(
 					{

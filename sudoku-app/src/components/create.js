@@ -81,13 +81,13 @@ class Sudoku extends React.Component {
 
 		let url = ''
 		if (this.state.difficulty === 'easy') {
-			url = 'http://localhost:3000/sudokus/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokus/'
 		} else if (this.state.difficulty === 'medium') {
-			url = 'http://localhost:3000/sudokums/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokums/'
 		} else if (this.state.difficulty === 'hard') {
-			url = 'http://localhost:3000/sudokuhs/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokuhs/'
 		} else if (this.state.difficulty === 'expert') {
-			url = 'http://localhost:3000/sudokues/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokues/'
 		}
 
 

@@ -64,13 +64,13 @@ class Sudoku extends React.Component {
 	getGame = () => {
 		let url = ''
 		if (this.state.difficulty === 'easy') {
-			url = 'http://localhost:3000/sudokus/game'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokus/game'
 		} else if (this.state.difficulty === 'medium') {
-			url = 'http://localhost:3000/sudokums/game'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokums/game'
 		} else if (this.state.difficulty === 'hard') {
-			url = 'http://localhost:3000/sudokuhs/game'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokuhs/game'
 		} else if (this.state.difficulty === 'expert') {
-			url = 'http://localhost:3000/sudokues/game'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokues/game'
 		}
 
 		fetch(url)

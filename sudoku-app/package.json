@@ -1,7 +1,7 @@
 {
   "name": "sudoku-app",
   "version": "0.1.0",
-  "proxy": "http://localhost:3000",
+  "proxy": "https://mighty-dusk-62250.herokuapp.com/",
   "homepage": "https://khantly101.github.io/sudoku-front-end/",
   "private": true,
   "dependencies": {

@@ -13,28 +13,28 @@ class Index extends React.Component {
 	}
 
 	getData = () => {
-		fetch('http://localhost:3000/sudokus')
+		fetch('https://mighty-dusk-62250.herokuapp.com/sudokus')
 			.then(response => response.json())
 			.then(json => {this.setState({
 				easy: json
 			})
 		})
 
-		fetch('http://localhost:3000/sudokums')
+		fetch('https://mighty-dusk-62250.herokuapp.com/sudokums')
 			.then(response => response.json())
 			.then(json => {this.setState({
 				medium: json
 			})
 		})
 
-		fetch('http://localhost:3000/sudokuhs')
+		fetch('https://mighty-dusk-62250.herokuapp.com/sudokuhs')
 			.then(response => response.json())
 			.then(json => {this.setState({
 				hard: json
 			})
 		})
 
-		fetch('http://localhost:3000/sudokues')
+		fetch('https://mighty-dusk-62250.herokuapp.com/sudokues')
 			.then(response => response.json())
 			.then(json => {this.setState({
 				expert: json
@@ -49,13 +49,13 @@ class Index extends React.Component {
 	handleDelete = (id, difficulty) => {
 		let url = ''
 		if (difficulty === 'easy') {
-			url = 'http://localhost:3000/sudokus/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokus/'
 		} else if (difficulty === 'medium') {
-			url = 'http://localhost:3000/sudokums/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokums/'
 		} else if (difficulty === 'hard') {
-			url = 'http://localhost:3000/sudokuhs/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokuhs/'
 		} else if (difficulty === 'expert') {
-			url = 'http://localhost:3000/sudokues/'
+			url = 'https://mighty-dusk-62250.herokuapp.com/sudokues/'
 		}
 
 
