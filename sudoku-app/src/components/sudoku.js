@@ -1,6 +1,8 @@
 import React 		from 'react'
+import { Animate } 	from 'react-animate-mount'
 import Control 		from './controls.js'
 import Difficulty 	from './difficulty.js'
+import Win 			from './win.js'
 
 import '../App.css'
 
@@ -8,6 +10,8 @@ class Sudoku extends React.Component {
 	state = {
 		difficulty: 'easy',
 		board: [],
+		failsafe: true,
+		win: false,
 		gamestart: false,
 		notes: false,
 		selectedNum: '',
@@ -82,6 +86,8 @@ class Sudoku extends React.Component {
 							e.set = false
 						}
 						this.setState({
+							failsafe: true,
+							win: false,
 							gamestart: false,
 							notes: false,
 							selectedNum: '',
@@ -223,6 +229,7 @@ class Sudoku extends React.Component {
 				selectedRow: '',
 				selectedCol: '',
 				selectedGroup: '',
+				win: true,
 			})
 		})
 	}
@@ -237,93 +244,99 @@ class Sudoku extends React.Component {
 
 	componentDidUpdate() {
 		let box = document.getElementsByClassName('wrong')
-		if (box.length === 0 && this.state.gamestart) {
-			console.log('You Win')
+		if (box.length === 0 && this.state.gamestart && this.state.failsafe) {
+			this.setState({
+				failsafe: false,
+				win: true
+			})
 		}
 	}
 
 	render () {
 		return (
 			<div>
-			<div className='container'>
-				<div className='board'>
-					{	
-						this.state.gamestart ?
-							this.state.board.map((ele, index) => {
-								return (
-									<div className='inner' group={index} key={index}>
-									{
-										ele.map((e) => {
-											return (
-												<div 
-													className={this.classList(
-															'box', 
-															e.set && 'set',
-															this.state.selectedNum === e.num && this.state.selectedNum > 0 && 'selectedOth',
-															this.state.selectedNum === this.state[e.row + e.collumn].num && this.state[e.row + e.collumn].num > 0 && 'selectedOth',
-															this.state.selectedRow === e.row && 'selectedNum',
-															this.state.selectedGroup === e.group && 'selectedNum',
-															this.state.selectedCol === e.collumn && 'selectedNum', 
-															this.state.selectedBox === (e.row + e.collumn) && 'selected',
-															this.state[e.row + e.collumn].num !== e.answer && e.set === false && 'wrong'
-														)}
-													set={e.set.toString()}
-													answer={e.answer}
-													num={e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
-													box={e.row + e.collumn} 
-													row={e.row}
-													collumn={e.collumn}
-													group={e.group} 
-													key={e.collumn + e.row}
-													onClick={this.selectBox}
-													onKeyDown={this.handleChange}
-													tabIndex='0'
-												>	
-													{e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
-													<div className={this.classList(
-															'notes', 
-															this.state[e.row + e.collumn].num > 0 && 'hidden'
-														)}
-													>
-														{
-															this.state[e.row+e.collumn].notes.map((elem, index) => {
-																return (
-																	<div 
-																		className={this.classList(
-																			'note', 
-																			!elem.active && 'inactive',
-																			this.state[e.row + e.collumn].num > 0 && 'hidden'
-																		)}
-																		key={index}
-																	>
-																		{elem.num}
-																	</div>
-																)
-															})
-														}
+				<Animate show={this.state.win} duration={500}>
+					<Win getGame={this.getGame}/> 
+				</Animate>
+				<div className='container'>
+					<div className='board'>
+						{	
+							this.state.gamestart ?
+								this.state.board.map((ele, index) => {
+									return (
+										<div className='inner' group={index} key={index}>
+										{
+											ele.map((e) => {
+												return (
+													<div 
+														className={this.classList(
+																'box', 
+																e.set && 'set',
+																this.state.selectedNum === e.num && this.state.selectedNum > 0 && 'selectedOth',
+																this.state.selectedNum === this.state[e.row + e.collumn].num && this.state[e.row + e.collumn].num > 0 && 'selectedOth',
+																this.state.selectedRow === e.row && 'selectedNum',
+																this.state.selectedGroup === e.group && 'selectedNum',
+																this.state.selectedCol === e.collumn && 'selectedNum', 
+																this.state.selectedBox === (e.row + e.collumn) && 'selected',
+																this.state[e.row + e.collumn].num !== e.answer && e.set === false && 'wrong'
+															)}
+														set={e.set.toString()}
+														answer={e.answer}
+														num={e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
+														box={e.row + e.collumn} 
+														row={e.row}
+														collumn={e.collumn}
+														group={e.group} 
+														key={e.collumn + e.row}
+														onClick={this.selectBox}
+														onKeyDown={this.handleChange}
+														tabIndex='0'
+													>	
+														{e.num > 0 ? e.num : this.state[e.row + e.collumn].num}
+														<div className={this.classList(
+																'notes', 
+																this.state[e.row + e.collumn].num > 0 && 'hidden'
+															)}
+														>
+															{
+																this.state[e.row+e.collumn].notes.map((elem, index) => {
+																	return (
+																		<div 
+																			className={this.classList(
+																				'note', 
+																				!elem.active && 'inactive',
+																				this.state[e.row + e.collumn].num > 0 && 'hidden'
+																			)}
+																			key={index}
+																		>
+																			{elem.num}
+																		</div>
+																	)
+																})
+															}
+														</div>
 													</div>
-												</div>
-											)
-										})
-									}
-									</div>
-								)					
-							}) : null
-					}
+												)
+											})
+										}
+										</div>
+									)					
+								}) : null
+						}
+					</div>
+					<div className='controlBox'>
+						<Difficulty difficultyChange={this.difficultyChange} getGame={this.getGame}/>
+						<Control 	
+								classList={this.classList} 
+								buttonChange={this.buttonChange} 
+								buttonClear={this.buttonClear} 
+								buttonHint={this.buttonHint} 
+								buttonNotes={this.buttonNotes} 
+								notes={this.state.notes}
+								buttonUndo={this.buttonUndo}
+						/>
+					</div>
 				</div>
-				<div className='controlBox'>
-					<Difficulty difficultyChange={this.difficultyChange} getGame={this.getGame}/>
-					<Control 	
-							classList={this.classList} 
-							buttonChange={this.buttonChange} 
-							buttonClear={this.buttonClear} 
-							buttonHint={this.buttonHint} 
-							buttonNotes={this.buttonNotes} 
-							notes={this.state.notes}
-							buttonUndo={this.buttonUndo}
-					/>
-				</div>
-			</div>
 			</div>
 		)
 	}

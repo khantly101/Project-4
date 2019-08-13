@@ -200,9 +200,54 @@ button:hover {
 	font-size: 10px;
 	width: 100px;
 	height: 25px;
+	background-color: steelblue;
 }
 
 .select {
 	width: 110px;
 	margin-left: 15px;
+}
+
+/*/////////////*/
+/*Win/////////*/
+/*///////////*/
+
+.winBox {
+	position: fixed; 
+  	width: 100%; 
+ 	height: 100%; 
+  	top: 0; 
+  	left: 0;
+ 	right: 0;
+  	bottom: 0;
+ 	background-color: rgba(0,0,0,0.5); 
+  	z-index: 2; 
+}
+
+.win {
+	width: 300px;
+	height: 150px;
+	z-index: 2;
+	background-color: white;
+	margin: 25vh auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.banner{
+	height: 20%;
+	width: 100%;
+	background-color: steelblue;
+}
+
+.victory {
+	line-height: 10px;
+	text-align: center;
+}
+
+.restart {
+	margin: 0 auto;
+	width: 60%;
+	height: 30%;
+	background-color: steelblue;
 }
