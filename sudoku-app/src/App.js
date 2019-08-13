@@ -1,5 +1,6 @@
 import React 								from 'react'
 import { BrowserRouter as Router, Route } 	from 'react-router-dom'
+import { HashRouter } 						from "react-router-dom";
 import Sudoku 								from './components/sudoku.js'
 import Index								from './components/index.js'
 import Create 								from './components/create.js'
@@ -53,7 +54,7 @@ class App extends React.Component {
 
 	render () {
 		return (
-			<Router>
+			<HashRouter basename='/'>
 				<div>
 					<Header handleSubmit={this.handleSubmit} handleChange={this.handleChange} logOut={this.logOut} state={this.state}/>
 					<Route path='/' exact component={Sudoku} />
@@ -61,7 +62,7 @@ class App extends React.Component {
 					<Route path='/create' component={Create} />
 					<Route path='/update' component={Update} />
 				</div>
-			</Router>
+			</HashRouter>
 		)
  	}
 }
