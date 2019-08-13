@@ -1,6 +1,7 @@
 import React 								from 'react'
 import { BrowserRouter as Router, Route } 	from 'react-router-dom'
-import { HashRouter } 						from "react-router-dom";
+import { HashRouter } 						from 'react-router-dom'
+import { Redirect }							from 'react-router'
 import Sudoku 								from './components/sudoku.js'
 import Index								from './components/index.js'
 import Create 								from './components/create.js'
@@ -61,6 +62,9 @@ class App extends React.Component {
 					<Route path='/index' component={Index} />
 					<Route path='/create' component={Create} />
 					<Route path='/update' component={Update} />
+					{
+						this.state.admin ? null : <Redirect from="*" to="/" />
+					}
 				</div>
 			</HashRouter>
 		)
