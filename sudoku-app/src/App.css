@@ -1,6 +1,12 @@
 /*/////////////*/
 /*Header//////*/
 /*///////////*/
+body{
+	background-image: url("components/BGv1.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 
 .header {
 	padding: 0;
@@ -49,6 +55,7 @@ input {
 
 .board {
 	border: 2px solid black;
+	background-color: white;
 	height: 480px;
 	width: 480px;
 	display: flex;
