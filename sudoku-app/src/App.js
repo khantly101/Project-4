@@ -31,7 +31,6 @@ class App extends React.Component {
 		})
 		.then(res => res.json())
 		.then (resJson => {
-			console.log(resJson)
 			if (resJson.status === 200) {
 				this.setState({
 					admin: true,

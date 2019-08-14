@@ -76,8 +76,6 @@ class Sudoku extends React.Component {
 			})
 			newGame.push(newGroup)
 		})
-		console.log(newGame)
-
 
 		let url = ''
 		if (this.state.difficulty === 'easy') {
@@ -101,7 +99,6 @@ class Sudoku extends React.Component {
 		})
 		.then (res => res.json())
 		.then (resJson => {
-			console.log(resJson)
 			this.setState({
 				redirect: true
 			})
