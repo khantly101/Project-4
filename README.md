@@ -15,5 +15,7 @@ React Animate Mount
 https://www.npmjs.com/package/react-animate-mount
 
 Issues:
-There are currently only 3 different puzzles per difficulty
-When creating games, there are currently no method to prevent an unwinnable game from being added to the database
+
+  -There are currently only 3 different puzzles per difficulty
+  
+  -When creating games, there are currently no method to prevent an unwinnable game from being added to the database
